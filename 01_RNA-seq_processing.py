@@ -60,15 +60,9 @@ def main():
 			slum_code.write('fastqc -f fastq %s_2.trimP\n'%SRA)
 			# map the reads to the genome
 			slum_code.write('hisat2 -p 4 --dta -x %s_gi -1 %s_1.trimP -2 %s_2.trimP -S %s.sam\n'%(args.genome_seq, SRA, SRA, SRA))
-			# get read counts
-			slum_code.write('htseq-count --format=sam -m union -s no -t gene -i ID %s_sorted.sam %s > HTSeqCount_%s.out\n'%(SRA, args.gff, SRA))
 		else:
 			# map the reads to the genome
 			slum_code.write('hisat2 -p 4 --dta -x %s_gi -1 %s_1.trimP -2 %s_2.trimP -S %s.sam\n'%(args.genome_seq, SRA, SRA, SRA))
-			# sort the sam file
-			slum_code.write('samtools sort  -n -O sam, %s.sam  -o %s_sorted.sam\n'%(SRA, SRA))
-			# get read counts
-			slum_code.write('htseq-count --format=sam -m union -s no -t gene -i ID %s_sorted.sam %s > HTSeqCount_%s.out\n'%(SRA, args.gff, SRA))
 
 	if args.layout == 'SE':
 		slum_code.write('fastq-dump %s\n'%SRA)
@@ -80,15 +74,16 @@ def main():
 			slum_code.write('fastqc -f fastq %s.trimP\n'%SRA)
 			# map the reads to the genome
 			slum_code.write('hisat2 -p 4 --dta -x %s_gi -U %s.trimP -S %s.sam\n'%(args.genome_seq, SRA, SRA))
-			# get read counts
-			slum_code.write('htseq-count --format=sam -m union -s no -t gene -i ID %s_sorted.sam %s > HTSeqCount_%s.out\n'%(SRA, args.gff, SRA))
 		else:
 			# map the reads to the genome
 			slum_code.write('hisat2 -p 4 --dta -x %s_gi -U %s.trimP -S %s.sam\n'%(args.genome_seq, SRA, SRA))
-			# sort the sam file
-			slum_code.write('samtools sort  -n -O sam, %s.sam  -o %s_sorted.sam\n'%(SRA, SRA))
-			# get read counts
-			slum_code.write('htseq-count --format=sam -m union -s no -t gene -i ID %s_sorted.sam %s > HTSeqCount_%s.out\n'%(SRA, args.gff, SRA))
+		
+	# sort the sam file
+	slum_code.write('samtools sort  -n -O sam, %s.sam  -o %s_sorted.sam\n'%(SRA, SRA))
+	# get uniquely mapped reads 
+	slum_code.write('python 02_keep_reads_with_quality_60_and_unique_mapping.py %s_sorted.sam\n'%(SRA))
+	# get read counts
+	slum_code.write('htseq-count --format=sam -m union -s no -t gene -i ID %s_sorted_quality_60_unique.sam %s > HTSeqCount_%s.out\n'%(SRA, args.gff, SRA))
 	
 	slum_code.close()
 

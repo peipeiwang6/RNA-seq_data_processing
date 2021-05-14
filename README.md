@@ -12,11 +12,8 @@
 
 > python 01_RNA_seq_processing.py -SRA SRR14066076 -genome_seq Pvirgatum_516_v5.0.fa -gff Pvirgatum_516_v5.1.gene.gff3 -layout PE -workdir /mnt/scratch/peipeiw/Data_for_Kenia/For_RNA_seq_pipeline -trim y -adapters all_PE_adapters.fa
 
-### combine the read count files
-> python 08_combine_read_counts.py
+## combine the read count files
+> python 03_combine_read_counts.py
 
-### call the TPM, which will be done in R
-> Rscript 09_TPM_calling.r
-
-### call Fold Change, which will be done in R
-> Rscript 10_FC.r
+## call the TPM, which will be done in R
+> Rscript 04_TPM_calling.r Read_counts.txt Pvirgatum_516_v5.1_transcript_length.txt
