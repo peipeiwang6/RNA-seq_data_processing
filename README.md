@@ -8,7 +8,7 @@
 ## build the genome index
 > hisat2-build Pvirgatum_516_v5.0.fa Pvirgatum_516_v5.0.fa_gi
 
-## You can apply the code 01_RNA-seq_processing.py to do the jobs automatically, An example command line for this code is as follow, which will produce a .sh file to be submitted to the slurm queue
+## You can apply the code 01_RNA-seq_processing.py to do the jobs automatically. An example command line for this code is as follow, which will produce a .sh file to be submitted to the slurm queue
 
 > python 01_RNA_seq_processing.py -SRA SRR14066076 -genome_seq Pvirgatum_516_v5.0.fa -gff Pvirgatum_516_v5.1.gene.gff3 -layout PE -workdir /mnt/scratch/peipeiw/Data_for_Kenia/For_RNA_seq_pipeline -trim y -adapters all_PE_adapters.fa
 
