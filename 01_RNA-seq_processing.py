@@ -45,8 +45,8 @@ def main():
 	slum_code.write('#!/bin/sh --login\n#SBATCH --time=%s:00:00\n#SBATCH --ntasks=%s\n#SBATCH --cpus-per-task=%s\n#SBATCH --mem=%sG\n#SBATCH --job-name Hisat_%s.sh\n#SBATCH -e Hisat_%s.sh.e\n#SBATCH -o Hisat_%s.sh.o\ncd %s\n'%(args.time,args.ntasks,args.cpus,args.mem,SRA,SRA,SRA,args.workdir))
 	slum_code.write('module load SRA-Toolkit FastQC Trimmomatic hisat2 SAMtools GNU/7.3.0-2.30  OpenMPI/3.1.1-CUDA HTSeq\n')
 	
-	# build the index for the genome
-	slum_code.write('hisat2-build %s %s_gi\n'%(args.genome_seq,args.genome_seq))
+#	# build the index for the genome
+#	slum_code.write('hisat2-build %s %s_gi\n'%(args.genome_seq,args.genome_seq))
 		
 	if args.layout == 'PE':
 		slum_code.write('fastq-dump --split-files %s\n'%SRA)
