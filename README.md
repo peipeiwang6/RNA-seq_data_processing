@@ -12,6 +12,8 @@
 
 > python 01_RNA_seq_processing.py -SRA SRR14066076 -genome_seq Pvirgatum_516_v5.0.fa -gff Pvirgatum_516_v5.1.gene.gff3 -layout PE -workdir /mnt/scratch/peipeiw/Data_for_Kenia/For_RNA_seq_pipeline -trim y -adapters all_PE_adapters.fa
 
+#### Note that, one step is conducted to keep only uniquely mapped reads which had Mapping quality of HISAT2 = 60. You may want to change the script 02_keep_reads_with_quality_60_and_unique_mapping.py if that is not what you want. Description of the Hisat2 sam format: http://daehwankimlab.github.io/hisat2/manual/#sam-output
+
 ## combine the read count files
 > python 03_combine_read_counts.py
 
