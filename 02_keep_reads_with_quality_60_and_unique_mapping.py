@@ -11,7 +11,8 @@ while inl:
 		tem = inl.split('\t')
 		if len(read)==0:
 			read.append(tem[0])
-			if inl.split('\t')[4] == '60':
+			if inl.split('\t')[4] == '60':  ### this column shows the Mapping quality of HISAT2. 
+							### See http://daehwankimlab.github.io/hisat2/manual/#sam-output for details
 				read.append(inl)
 		else:
 			if tem[0] == read[0]:
